@@ -9,3 +9,42 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Quiz {
+  id          String        @id @default(cuid())
+  nome        String
+  perguntas   Pergunta[]
+  Pontuacacao Pontuacacao[]
+}
+
+model Pergunta {
+  id       String     @id @default(cuid())
+  titulo   String
+  respotas Resposta[]
+  quizId   String?
+  Quiz     Quiz?      @relation(fields: [quizId], references: [id])
+}
+
+model Resposta {
+  id            String    @id @default(cuid())
+  descricao     String
+  perguntaId    String?
+  respota_certa Boolean
+  Pergunta      Pergunta? @relation(fields: [perguntaId], references: [id])
+}
+
+model Usuario {
+  id         String        @id @default(cuid())
+  nome       String
+  meusPontos Pontuacacao[]
+  tipo       Boolean
+}
+
+model Pontuacacao {
+  id        String   @id @default(cuid())
+  pontuacao Int
+  usuarioId String?
+  quizId    String?
+  Usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+  Quiz      Quiz?    @relation(fields: [quizId], references: [id])
+}
