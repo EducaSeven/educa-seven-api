@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOneQuizze = exports.getAllQuizzes = void 0;
-const quizService_1 = require("../services/quizService");
-const client = new quizService_1.QuizService();
+const findAll_quizzes_service_1 = require("../services/quiz/findAll-quizzes.service");
+const findOne_quiz_service_1 = require("../services/quiz/findOne-quiz.service");
 const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const quizzes = yield client.findAll();
+        const quizzes = yield (0, findAll_quizzes_service_1.findAllQuizzes)();
         return res.json(quizzes);
     }
     catch (error) {
@@ -24,8 +24,8 @@ const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getAllQuizzes = getAllQuizzes;
 const getOneQuizze = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const idQuiz = req.body.id;
-        const quiz = yield client.findOne(idQuiz);
+        const idQuiz = req.params.id;
+        const quiz = yield (0, findOne_quiz_service_1.findOneQuiz)(idQuiz);
         return res.json(quiz);
     }
     catch (error) {

@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import { QuizService } from "../services/quizService";
-
-const client = new QuizService();
+import { findAllQuizzes } from "../services/quiz/findAll-quizzes.service";
+import { findOneQuiz } from "../services/quiz/findOne-quiz.service";
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
   try {
-    const quizzes = await client.findAll();
+    const quizzes = await findAllQuizzes();
     return res.json(quizzes);
   } catch (error) {
     console.log(error);
@@ -14,8 +13,8 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
 
 export const getOneQuizze = async (req: Request, res: Response) => {
   try {
-    const idQuiz = req.body.id;
-    const quiz = await client.findOne(idQuiz);
+    const idQuiz = req.params.id;
+    const quiz = await findOneQuiz(idQuiz);
     return res.json(quiz);
   } catch (error) {
     console.log(error);

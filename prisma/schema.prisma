@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../dist/database/prisma/generated/client"
 }
 
 datasource db {
@@ -14,25 +13,25 @@ datasource db {
 model Quiz {
   id          String        @id @default(cuid())
   nome        String
-  perguntas   Pergunta[]
   Pontuacacao Pontuacacao[]
+  perguntas   Pergunta[]
 }
 
 model Pergunta {
   id               String             @id @default(cuid())
   titulo           String
   quizId           String?
-  Quiz             Quiz?              @relation(fields: [quizId], references: [id])
   Pergunta_Respota Pergunta_Respota[]
+  Quiz             Quiz?              @relation(fields: [quizId], references: [id])
 }
 
 model Pergunta_Respota {
-  id         String   @id @default(cuid())
-  pergunta   Pergunta @relation(fields: [perguntaId], references: [id])
-  resposta   Resposta @relation(fields: [respostaId], references: [id])
+  id         String   @id @unique @default(cuid())
   resultado  Boolean
   perguntaId String
   respostaId String
+  pergunta   Pergunta @relation(fields: [perguntaId], references: [id])
+  resposta   Resposta @relation(fields: [respostaId], references: [id])
 }
 
 model Resposta {
