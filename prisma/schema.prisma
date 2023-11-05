@@ -3,10 +3,11 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../dist/database/prisma/generated/client"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,19 +19,26 @@ model Quiz {
 }
 
 model Pergunta {
-  id       String     @id @default(cuid())
-  titulo   String
-  respotas Resposta[]
-  quizId   String?
-  Quiz     Quiz?      @relation(fields: [quizId], references: [id])
+  id               String             @id @default(cuid())
+  titulo           String
+  quizId           String?
+  Quiz             Quiz?              @relation(fields: [quizId], references: [id])
+  Pergunta_Respota Pergunta_Respota[]
+}
+
+model Pergunta_Respota {
+  id         String   @id @default(cuid())
+  pergunta   Pergunta @relation(fields: [perguntaId], references: [id])
+  resposta   Resposta @relation(fields: [respostaId], references: [id])
+  resultado  Boolean
+  perguntaId String
+  respostaId String
 }
 
 model Resposta {
-  id            String    @id @default(cuid())
-  descricao     String
-  perguntaId    String?
-  respota_certa Boolean
-  Pergunta      Pergunta? @relation(fields: [perguntaId], references: [id])
+  id               String             @id @default(cuid())
+  descricao        String
+  Pergunta_Respota Pergunta_Respota[]
 }
 
 model Usuario {
