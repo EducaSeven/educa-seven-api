@@ -1,12 +1,15 @@
-import express from "express";
-import { getAllQuizzes, getOneQuizze } from "../controllers/quizController";
+import express from 'express'
+import { getAllQuizzes, getOneQuizze, saveQuiz } from '../controllers/quizController'
 
-const quizRouter = express.Router();
+const quizRouter = express.Router()
 
 // Rota para obter todos os quizzes
-quizRouter.get("/", getAllQuizzes);
+quizRouter.get('/', getAllQuizzes)
 
 // Rota para obter um quiz por ID
-quizRouter.get("/:id", getOneQuizze);
+quizRouter.get('/:id', getOneQuizze)
 
-export default quizRouter;
+// Rota para salvar quiz
+quizRouter.post('/save', saveQuiz)
+
+export default quizRouter
