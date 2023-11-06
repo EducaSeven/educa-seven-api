@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllQuizzes, getOneQuizze, saveQuiz } from '../controllers/quizController'
+import { deleteQuiz, getAllQuizzes, getOneQuizze, saveQuiz } from '../controllers/quizController'
 
 const quizRouter = express.Router()
 
@@ -11,5 +11,8 @@ quizRouter.get('/:id', getOneQuizze)
 
 // Rota para salvar quiz
 quizRouter.post('/save', saveQuiz)
+
+// Rota para deleter quiz
+quizRouter.delete('/:id', deleteQuiz)
 
 export default quizRouter

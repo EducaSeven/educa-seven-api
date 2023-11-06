@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { findAllQuizzes } from '../services/quiz/findAll-quizzes.service'
 import { findOneQuiz } from '../services/quiz/findOne-quiz.service'
 import { saveQuizUseCase } from '../services/quiz/saveQuiz.service'
+import { deleteQuizUseCase } from '../services/quiz/deleteQuiz.service'
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
   try {
@@ -27,6 +28,16 @@ export const saveQuiz = async (req: Request, res: Response) => {
     const { nome, perguntas } = req.body
     const quiz: any = await saveQuizUseCase(nome, perguntas)
     return res.status(201).json(quiz)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteQuiz = async (req: Request, res: Response) => {
+  try {
+    const idQuiz = req.params.id
+    await deleteQuizUseCase(idQuiz)
+    return res.status(204).json()
   } catch (error) {
     console.log(error)
   }
