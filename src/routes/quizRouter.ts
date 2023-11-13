@@ -1,18 +1,23 @@
-import express from 'express'
-import { deleteQuiz, getAllQuizzes, getOneQuizze, saveQuiz } from '../controllers/quizController'
+import express from 'express';
+import {
+  deleteQuiz,
+  getAllQuizzes,
+  getOneQuizze,
+  createQuiz,
+} from '../controllers/quizController';
 
-const quizRouter = express.Router()
+const quizRouter = express.Router();
 
 // Rota para obter todos os quizzes
-quizRouter.get('/', getAllQuizzes)
+quizRouter.get('/', getAllQuizzes);
 
 // Rota para obter um quiz por ID
-quizRouter.get('/:id', getOneQuizze)
+quizRouter.get('/:id', getOneQuizze);
 
 // Rota para salvar quiz
-quizRouter.post('/save', saveQuiz)
+quizRouter.post('/create', createQuiz);
 
 // Rota para deleter quiz
-quizRouter.delete('/:id', deleteQuiz)
+quizRouter.delete('/:id', deleteQuiz);
 
-export default quizRouter
+export default quizRouter;

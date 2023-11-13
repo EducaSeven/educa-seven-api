@@ -1,6 +1,6 @@
-import { clientDataBase } from "../../database/clientDataBase";
+import { clientDataBase } from '../../database/clientDataBase';
 
-export const findAllQuizzes = async () => {
+export const findAllQuizzesService = async () => {
   try {
     const quiz = await clientDataBase.quiz.findMany({
       select: {
@@ -10,7 +10,7 @@ export const findAllQuizzes = async () => {
     });
     return quiz;
   } catch (error) {
-    console.error("Erro ao buscar quizzes:", error);
+    console.error('Erro ao buscar quizzes:', error);
     return null;
   }
 };

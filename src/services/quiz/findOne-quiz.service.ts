@@ -1,6 +1,6 @@
-import { clientDataBase } from "../../database/clientDataBase";
+import { clientDataBase } from '../../database/clientDataBase';
 
-export const findOneQuiz = async (id: string) => {
+export const findOneQuizService = async (id: string) => {
   try {
     const quiz = await clientDataBase.quiz.findUnique({ where: { id } });
 
@@ -35,7 +35,7 @@ export const findOneQuiz = async (id: string) => {
 
     return { quiz, perguntas };
   } catch (error) {
-    console.error("Erro ao buscar quizz ID:", error);
+    console.error('Erro ao buscar quizz ID:', error);
     return null;
   }
 };
