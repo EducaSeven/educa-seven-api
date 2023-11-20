@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOneQuiz = void 0;
+exports.findOneQuizService = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const findOneQuiz = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const findOneQuizService = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const quiz = yield clientDataBase_1.clientDataBase.quiz.findUnique({ where: { id } });
         if (!quiz) {
@@ -43,8 +43,8 @@ const findOneQuiz = (id) => __awaiter(void 0, void 0, void 0, function* () {
         return { quiz, perguntas };
     }
     catch (error) {
-        console.error("Erro ao buscar quizz ID:", error);
+        console.error('Erro ao buscar quizz ID:', error);
         return null;
     }
 });
-exports.findOneQuiz = findOneQuiz;
+exports.findOneQuizService = findOneQuizService;

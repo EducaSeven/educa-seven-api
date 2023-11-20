@@ -3,6 +3,7 @@ import { findAllQuizzesService } from '../services/quiz/findAll-quizzes.service'
 import { findOneQuizService } from '../services/quiz/findOne-quiz.service';
 import { createQuizService } from '../services/quiz/createQuiz.service';
 import { deleteQuizService } from '../services/quiz/deleteQuiz.service';
+import { CreateQuizDto } from '../dtos/createQuizDto';
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
   try {
@@ -25,8 +26,8 @@ export const getOneQuizze = async (req: Request, res: Response) => {
 
 export const createQuiz = async (req: Request, res: Response) => {
   try {
-    const { nome, perguntas } = req.body;
-    const quiz: any = await createQuizService(nome, perguntas);
+    const data: CreateQuizDto = req.body;
+    const quiz: any = await createQuizService(data);
     return res.status(201).json(quiz);
   } catch (error) {
     console.log(error);

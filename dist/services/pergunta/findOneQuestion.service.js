@@ -9,21 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllQuizzesService = void 0;
+exports.findOnePergunta = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const findAllQuizzesService = () => __awaiter(void 0, void 0, void 0, function* () {
+const findOnePergunta = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const quiz = yield clientDataBase_1.clientDataBase.quiz.findMany({
-            select: {
-                id: true,
-                nome: true,
+        const pergunta = yield clientDataBase_1.clientDataBase.pergunta.findUnique({
+            where: {
+                id,
             },
         });
-        return quiz;
+        const respostas = yield clientDataBase_1.clientDataBase.pergunta_Respota.findMany({
+            where: {
+                perguntaId: pergunta === null || pergunta === void 0 ? void 0 : pergunta.id,
+            },
+            select: {
+                respostaId: true,
+                resposta: true,
+                resultado: true,
+            },
+        });
+        return { pergunta, respostas };
     }
     catch (error) {
-        console.error('Erro ao buscar quizzes:', error);
-        return null;
+        console.error('Erro ao encontrar pergunta:', error);
     }
 });
-exports.findAllQuizzesService = findAllQuizzesService;
+exports.findOnePergunta = findOnePergunta;

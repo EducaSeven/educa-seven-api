@@ -1,6 +1,7 @@
 import { RespostaDto } from './respostaDto';
 
 export interface PerguntaDto {
-  titulo: string;
+  pergTitle: string;
+  perDescription: string;
   respostas: RespostaDto[];
 }

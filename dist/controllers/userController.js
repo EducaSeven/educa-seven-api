@@ -9,21 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllQuizzesService = void 0;
-const clientDataBase_1 = require("../../database/clientDataBase");
-const findAllQuizzesService = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.createUser = void 0;
+const createUser_service_1 = require("../services/user/createUser.service");
+const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const quiz = yield clientDataBase_1.clientDataBase.quiz.findMany({
-            select: {
-                id: true,
-                nome: true,
-            },
-        });
-        return quiz;
+        const { nome, tipo } = req.body;
+        const usuario = yield (0, createUser_service_1.createUserService)(nome, tipo);
+        return res.status(201).json(usuario);
     }
     catch (error) {
-        console.error('Erro ao buscar quizzes:', error);
-        return null;
+        console.log(error);
     }
 });
-exports.findAllQuizzesService = findAllQuizzesService;
+exports.createUser = createUser;

@@ -1,4 +1,4 @@
 export interface RespostaDto {
-  descricao: string;
-  resultado: boolean;
+  respDescription: string;
+  respResposta: boolean;
 }

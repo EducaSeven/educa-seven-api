@@ -9,21 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllQuizzesService = void 0;
+exports.deleteQuizService = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const findAllQuizzesService = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const quiz = yield clientDataBase_1.clientDataBase.quiz.findMany({
-            select: {
-                id: true,
-                nome: true,
-            },
-        });
-        return quiz;
+const deleteQuizService = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!id) {
+        throw Error('Id invalido');
     }
-    catch (error) {
-        console.error('Erro ao buscar quizzes:', error);
-        return null;
+    const quiz = yield clientDataBase_1.clientDataBase.quiz.findUnique({ where: { id } });
+    if (!quiz) {
+        throw Error('Id não encontrado');
     }
+    const perguntas = yield clientDataBase_1.clientDataBase.pergunta.findMany({
+        where: { quizId: quiz.id },
+    });
+    if (perguntas) {
+        yield clientDataBase_1.clientDataBase.pergunta.deleteMany({ where: { quizId: quiz.id } });
+    }
+    yield clientDataBase_1.clientDataBase.quiz.delete({ where: { id } });
 });
-exports.findAllQuizzesService = findAllQuizzesService;
+exports.deleteQuizService = deleteQuizService;
