@@ -9,8 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = void 0;
+exports.deleteUser = exports.getOneUser = exports.getAllUsers = exports.createUser = void 0;
 const createUser_service_1 = require("../services/user/createUser.service");
+const deleteUser_service_1 = require("../services/user/deleteUser.service");
+const findAllUsers_service_1 = require("../services/user/findAllUsers.service");
+const findOneUser_service_1 = require("../services/user/findOneUser.service");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { nome, tipo } = req.body;
@@ -22,3 +25,35 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createUser = createUser;
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield (0, findAllUsers_service_1.findAllUsersService)();
+        return res.json(users);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getAllUsers = getAllUsers;
+const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const idUser = req.params.id;
+        const user = yield (0, findOneUser_service_1.findOneUserService)(idUser);
+        return res.json(user);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.getOneUser = getOneUser;
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const idUser = req.params.id;
+        yield (0, deleteUser_service_1.deleteUserService)(idUser);
+        return res.status(204).json();
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.deleteUser = deleteUser;
