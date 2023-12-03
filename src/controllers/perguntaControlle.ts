@@ -3,6 +3,7 @@ import { PerguntaDto } from '../dtos/perguntaDto';
 import { createPergunta } from '../services/pergunta/createPergunta.service';
 import { findAllPerguntas } from '../services/pergunta/findAllPergunta.service';
 import { findOnePergunta } from '../services/pergunta/findOneQuestion.service';
+import { deleteOnePergunta } from '../services/pergunta/deletePergunta.service';
 
 export const postPergunta = async (req: Request, res: Response) => {
   try {
@@ -29,6 +30,16 @@ export const getOnePergunta = async (req: Request, res: Response) => {
   try {
     console.log('GetOnePergunta, params.id:', req.params.id);
     const resp = await findOnePergunta(req.params.id);
+    return res.status(200).json(resp);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePergunta = async (req: Request, res: Response) => {
+  try {
+    console.log('deletePergunta, params.id:', req.params.id);
+    const resp = await deleteOnePergunta(req.params.id);
     return res.status(200).json(resp);
   } catch (error) {
     console.log(error);

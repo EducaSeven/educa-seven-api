@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+  deletePergunta,
   getAllPerguntas,
   getOnePergunta,
   postPergunta,
@@ -13,5 +14,7 @@ perguntaRouter.post('/', postPergunta);
 perguntaRouter.get('/all', getAllPerguntas);
 
 perguntaRouter.get('/:id', getOnePergunta);
+
+perguntaRouter.delete('/:id', deletePergunta);
 
 export default perguntaRouter;
