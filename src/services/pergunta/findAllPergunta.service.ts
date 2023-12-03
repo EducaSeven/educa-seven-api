@@ -22,7 +22,13 @@ export const findAllPerguntas = async () => {
           resultado: true,
         },
       });
-      pergunta_resposta.push({ ...pergunta, respostas });
+
+      const resposta = respostas.map((r) => {
+        const resultado = r.resultado;
+        const descricao = r.resposta.descricao;
+        return { descricao, resultado };
+      });
+      pergunta_resposta.push({ ...pergunta, resposta });
     }
 
     return pergunta_resposta;
