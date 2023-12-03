@@ -13,7 +13,7 @@ export const findAllPerguntas = async () => {
     let pergunta_resposta = [] as any[];
 
     for (const pergunta of perguntas) {
-      const respostas = await clientDataBase.pergunta_Respota.findMany({
+      const resposta = await clientDataBase.pergunta_Respota.findMany({
         where: {
           perguntaId: pergunta.id,
         },
@@ -23,12 +23,12 @@ export const findAllPerguntas = async () => {
         },
       });
 
-      const resposta = respostas.map((r) => {
+      const respostas = resposta.map((r) => {
         const resultado = r.resultado;
-        const descricao = r.resposta.descricao;
-        return { descricao, resultado };
+        const description = r.resposta.descricao;
+        return { description, resultado };
       });
-      pergunta_resposta.push({ ...pergunta, resposta });
+      pergunta_resposta.push({ ...pergunta, respostas });
     }
 
     return pergunta_resposta;
