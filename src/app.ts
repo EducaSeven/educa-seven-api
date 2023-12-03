@@ -13,6 +13,7 @@ app.use(express.json());
 app.use('/quizzes', quizRouter);
 app.use('/user', userRouter);
 app.use('/pergunta', perguntaRouter);
+app.use('/pontuacao', perguntaRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
