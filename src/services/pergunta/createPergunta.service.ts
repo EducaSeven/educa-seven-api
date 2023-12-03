@@ -6,6 +6,7 @@ export const createPergunta = async (pergunta: PerguntaDto) => {
     const perguntaCriada = await clientDataBase.pergunta.create({
       data: {
         titulo: pergunta.pergTitle,
+        description: pergunta.pergDescription,
       },
     });
 
