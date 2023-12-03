@@ -6,6 +6,7 @@ import { findOneUserService } from '../services/user/findOneUser.service';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
+    console.log('createUser, req.body', req.body);
     const { nome, tipo } = req.body;
     const usuario: any = await createUserService(nome, tipo);
     return res.status(201).json(usuario);
@@ -16,6 +17,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
+    console.log('getAllUsers,  no req.body no params');
     const users = await findAllUsersService();
     return res.json(users);
   } catch (error) {
@@ -25,6 +27,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getOneUser = async (req: Request, res: Response) => {
   try {
+    console.log('getOneUser, req.params.id: ', req.params.id);
     const idUser = req.params.id;
     const user = await findOneUserService(idUser);
     return res.json(user);
@@ -35,6 +38,7 @@ export const getOneUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
+    console.log('deleteUser, req.params.id: ', req.params.id);
     const idUser = req.params.id;
     await deleteUserService(idUser);
     return res.status(204).json();

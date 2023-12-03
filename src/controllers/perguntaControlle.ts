@@ -6,6 +6,7 @@ import { findOnePergunta } from '../services/pergunta/findOneQuestion.service';
 
 export const postPergunta = async (req: Request, res: Response) => {
   try {
+    console.log('postPergunta,  body:', req.body);
     const data: PerguntaDto = req.body;
     const resp = await createPergunta(data);
     return res.status(200).json(resp);
@@ -16,6 +17,7 @@ export const postPergunta = async (req: Request, res: Response) => {
 
 export const getAllPerguntas = async (req: Request, res: Response) => {
   try {
+    console.log('getAllPerguntas, no body e noparams:');
     const resp = await findAllPerguntas();
     return res.status(200).json(resp);
   } catch (error) {
@@ -25,7 +27,7 @@ export const getAllPerguntas = async (req: Request, res: Response) => {
 
 export const getOnePergunta = async (req: Request, res: Response) => {
   try {
-    console.log('teste');
+    console.log('GetOnePergunta, params.id:', req.params.id);
     const resp = await findOnePergunta(req.params.id);
     return res.status(200).json(resp);
   } catch (error) {
