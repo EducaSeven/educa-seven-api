@@ -6,6 +6,7 @@ export const findAllPerguntas = async () => {
       select: {
         id: true,
         titulo: true,
+        description: true,
       },
     });
 
