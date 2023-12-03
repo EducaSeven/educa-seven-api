@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "tsc && npx primsa generate",
+    "build": "tsc && npx prisma generate",
     "start": "npm run build && node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

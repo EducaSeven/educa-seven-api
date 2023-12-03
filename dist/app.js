@@ -15,6 +15,7 @@ app.use(express_1.default.json());
 app.use('/quizzes', quizRouter_1.default);
 app.use('/user', userRoute_1.default);
 app.use('/pergunta', perguntaRouter_1.default);
+app.use('/pontuacao', perguntaRouter_1.default);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
