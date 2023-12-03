@@ -10,7 +10,21 @@ export const findAllPerguntas = async () => {
       },
     });
 
-    return { perguntas };
+    const perguntas_respostas = perguntas.map(async (p) => {
+      const respostas = await clientDataBase.pergunta_Respota.findMany({
+        where: {
+          perguntaId: p.id,
+        },
+        select: {
+          resposta: true,
+          resultado: true,
+        },
+      });
+
+      return { p, respostas };
+    });
+
+    return { perguntas_respostas };
   } catch (error) {
     console.error('Erro ao retornar perguntas:', error);
   }

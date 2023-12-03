@@ -6,6 +6,7 @@ export const createQuizService = async (data: CreateQuizDto) => {
     let savedQuiz = await clientDataBase.quiz.create({
       data: {
         nome: data.titulo,
+        description: data.descricao,
       },
     });
 
