@@ -13,6 +13,7 @@ datasource db {
 model Quiz {
   id          String        @id @default(cuid())
   nome        String
+  description String
   Pontuacacao Pontuacacao[]
   perguntas   Pergunta[]
 }
@@ -21,6 +22,7 @@ model Pergunta {
   id               String             @id @default(cuid())
   titulo           String
   quizId           String?
+  description      String
   Pergunta_Respota Pergunta_Respota[]
   Quiz             Quiz?              @relation(fields: [quizId], references: [id])
 }
