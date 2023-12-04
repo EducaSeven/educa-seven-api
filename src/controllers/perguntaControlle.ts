@@ -5,6 +5,7 @@ import { findAllPerguntas } from '../services/pergunta/findAllPergunta.service';
 import { findOnePergunta } from '../services/pergunta/findOneQuestion.service';
 import { deleteOnePergunta } from '../services/pergunta/deletePergunta.service';
 import { upersetPergunta } from '../services/pergunta/upersetPergunta.service';
+import { findAllPerguntasWithQuizId } from '../services/pergunta/findAllPerguntasWithQuizId.service';
 
 export const postPergunta = async (req: Request, res: Response) => {
   try {
@@ -21,6 +22,20 @@ export const getAllPerguntas = async (req: Request, res: Response) => {
   try {
     console.log('getAllPerguntas, no body e noparams:');
     const resp = await findAllPerguntas();
+    return res.status(200).json(resp);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllPerguntasWithIdQuiz = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    console.log('getAllPerguntasWithIdQuiz, params.id:');
+    const idquiz = req.params.id;
+    const resp = await findAllPerguntasWithQuizId(idquiz);
     return res.status(200).json(resp);
   } catch (error) {
     console.log(error);
