@@ -12,7 +12,7 @@ const userRouter = express.Router();
 userRouter.post('/login', postLogin);
 
 // Rota para criar usuários
-userRouter.post('/', createUser);
+userRouter.post('/register', createUser);
 
 // Rota para obter todos os usuarios
 userRouter.get('/', getAllUsers);

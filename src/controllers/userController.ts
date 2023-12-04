@@ -8,9 +8,9 @@ import { realiseLogin } from '../services/user/realiseLogin.service';
 export const createUser = async (req: Request, res: Response) => {
   try {
     console.log('createUser, req.body', req.body);
-    const { nome, tipo } = req.body;
-    const usuario: any = await createUserService(nome, tipo);
-    return res.status(201).json(usuario);
+    const { usuario, senha } = req.body;
+    const user = await createUserService(usuario, senha);
+    return res.status(201).json(user);
   } catch (error) {
     console.log(error);
   }

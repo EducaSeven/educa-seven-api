@@ -1,11 +1,13 @@
 import { clientDataBase } from '../../database/clientDataBase';
 
-export const createUserService = async (nome: string, tipo: boolean) => {
+export const createUserService = async (nome: string, senha: string) => {
   try {
     return await clientDataBase.usuario.create({
       data: {
         nome,
-        tipo,
+        senha,
+        tipo: true,
+        email: `${nome}@gamil.com`,
       },
     });
   } catch (error) {
