@@ -34,7 +34,7 @@ export const getAllPerguntasWithIdQuiz = async (
 ) => {
   try {
     console.log('getAllPerguntasWithIdQuiz, params.id:');
-    const idquiz = req.params.id;
+    const idquiz = req.params.quizId;
     const resp = await findAllPerguntasWithQuizId(idquiz);
     return res.status(200).json(resp);
   } catch (error) {

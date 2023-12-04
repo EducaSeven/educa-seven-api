@@ -2,6 +2,7 @@ import express from 'express';
 import {
   deletePergunta,
   getAllPerguntas,
+  getAllPerguntasWithIdQuiz,
   getOnePergunta,
   postPergunta,
   updatePergunta,
@@ -13,6 +14,8 @@ const perguntaRouter = express.Router();
 perguntaRouter.post('/', postPergunta);
 
 perguntaRouter.get('/all', getAllPerguntas);
+
+perguntaRouter.get('/all/:quizId', getAllPerguntasWithIdQuiz);
 
 perguntaRouter.get('/:id', getOnePergunta);
 
