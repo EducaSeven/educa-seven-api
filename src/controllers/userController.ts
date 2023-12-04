@@ -42,7 +42,7 @@ export const deleteUser = async (req: Request, res: Response) => {
     console.log('deleteUser, req.params.id: ', req.params.id);
     const idUser = req.params.id;
     await deleteUserService(idUser);
-    return res.status(204).json();
+    return res.status(200).json();
   } catch (error) {
     console.log(error);
   }
@@ -53,7 +53,7 @@ export const postLogin = async (req: Request, res: Response) => {
     console.log('login, req.body ', req.body);
     const { usuario, senha } = req.body;
     const resp = await realiseLogin(usuario, senha);
-    return res.status(204).json(resp);
+    return res.status(200).json(resp);
   } catch (error) {
     console.log(error);
   }
