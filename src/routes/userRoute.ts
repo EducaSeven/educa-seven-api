@@ -21,6 +21,6 @@ userRouter.get('/:id', getOneUser);
 // Rota para deleter usuario
 userRouter.delete('/:id', deleteUser);
 
-userRouter.delete('/login', postLogin);
+userRouter.post('/login', postLogin);
 
 export default userRouter;
