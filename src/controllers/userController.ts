@@ -3,6 +3,7 @@ import { createUserService } from '../services/user/createUser.service';
 import { deleteUserService } from '../services/user/deleteUser.service';
 import { findAllUsersService } from '../services/user/findAllUsers.service';
 import { findOneUserService } from '../services/user/findOneUser.service';
+import { realiseLogin } from '../services/user/realiseLogin.service';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -27,7 +28,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const getOneUser = async (req: Request, res: Response) => {
   try {
-    console.log('getOneUser, req.params.id: ', req.params.id);
+    console.log('getAllUsers, req.params.id: ', req.params.id);
     const idUser = req.params.id;
     const user = await findOneUserService(idUser);
     return res.json(user);
@@ -41,6 +42,17 @@ export const deleteUser = async (req: Request, res: Response) => {
     console.log('deleteUser, req.params.id: ', req.params.id);
     const idUser = req.params.id;
     await deleteUserService(idUser);
+    return res.status(204).json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postLogin = async (req: Request, res: Response) => {
+  try {
+    console.log('login, req.body ', req.body);
+    const { usuario, senha } = req.body;
+    await realiseLogin(usuario, senha);
     return res.status(204).json();
   } catch (error) {
     console.log(error);

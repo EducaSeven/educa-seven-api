@@ -1,5 +1,11 @@
 import express, { Request, Response } from 'express';
-import { createUser, deleteUser, getAllUsers, getOneUser } from '../controllers/userController';
+import {
+  createUser,
+  deleteUser,
+  getAllUsers,
+  getOneUser,
+  postLogin,
+} from '../controllers/userController';
 
 const userRouter = express.Router();
 
@@ -14,5 +20,7 @@ userRouter.get('/:id', getOneUser);
 
 // Rota para deleter usuario
 userRouter.delete('/:id', deleteUser);
+
+userRouter.delete('/login', postLogin);
 
 export default userRouter;

@@ -4,6 +4,7 @@ import {
   getAllPerguntas,
   getOnePergunta,
   postPergunta,
+  updatePergunta,
 } from '../controllers/perguntaControlle';
 
 const perguntaRouter = express.Router();
@@ -16,5 +17,7 @@ perguntaRouter.get('/all', getAllPerguntas);
 perguntaRouter.get('/:id', getOnePergunta);
 
 perguntaRouter.delete('/:id', deletePergunta);
+
+perguntaRouter.post('/update', updatePergunta);
 
 export default perguntaRouter;

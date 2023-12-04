@@ -13,7 +13,7 @@ export const createPergunta = async (pergunta: PerguntaDto) => {
     pergunta.respostas.forEach(async (r) => {
       const respostaCriada = await clientDataBase.resposta.create({
         data: {
-          descricao: r.respDescription,
+          descricao: r.description,
         },
       });
 
@@ -21,7 +21,7 @@ export const createPergunta = async (pergunta: PerguntaDto) => {
         data: {
           perguntaId: perguntaCriada.id,
           respostaId: respostaCriada.id,
-          resultado: r.respResposta,
+          resultado: r.resultado,
         },
       });
     });

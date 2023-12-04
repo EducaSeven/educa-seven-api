@@ -2,40 +2,36 @@ import { clientDataBase } from '../../database/clientDataBase';
 
 export const deleteOnePergunta = async (id: string) => {
   try {
-    const pergunta = await clientDataBase.pergunta.findUnique({
-      where: {
-        id,
-      },
-    });
+    await clientDataBase.$transaction(async (prisma) => {
+      // Encontra todas as respostas associadas à pergunta
+      const respostas = await prisma.pergunta_Respota.findMany({
+        where: {
+          perguntaId: id,
+        },
+      });
 
-    const pergunta_resposta = await clientDataBase.pergunta_Respota.findFirst({
-      where: {
-        perguntaId: pergunta?.id,
-      },
-    });
+      // Deleta as respostas associadas à pergunta
+      await prisma.pergunta_Respota.deleteMany({
+        where: {
+          perguntaId: id,
+        },
+      });
 
-    const resposta = await clientDataBase.resposta.findFirst({
-      where: {
-        id: pergunta_resposta?.respostaId,
-      },
-    });
+      // Deleta a pergunta
+      await prisma.pergunta.delete({
+        where: {
+          id: id,
+        },
+      });
 
-    await clientDataBase.pergunta_Respota.delete({
-      where: {
-        id: pergunta_resposta?.id,
-      },
-    });
-
-    await clientDataBase.pergunta.delete({
-      where: {
-        id,
-      },
-    });
-
-    await clientDataBase.resposta.delete({
-      where: {
-        id: resposta?.id,
-      },
+      // Deleta as respostas encontradas
+      await prisma.resposta.deleteMany({
+        where: {
+          id: {
+            in: respostas.map((r) => r.respostaId),
+          },
+        },
+      });
     });
 
     return { msg: 'deletado com sucesso' };

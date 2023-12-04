@@ -18,6 +18,7 @@ export const findAllPerguntas = async () => {
           perguntaId: pergunta.id,
         },
         select: {
+          id: true,
           resposta: true,
           resultado: true,
         },
@@ -26,7 +27,8 @@ export const findAllPerguntas = async () => {
       const respostas = resposta.map((r) => {
         const resultado = r.resultado;
         const description = r.resposta.descricao;
-        return { description, resultado };
+        const id = r.resposta.id;
+        return { description, resultado, id };
       });
       pergunta_resposta.push({ ...pergunta, respostas });
     }

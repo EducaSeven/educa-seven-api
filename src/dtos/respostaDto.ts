@@ -1,4 +1,5 @@
 export interface RespostaDto {
-  respDescription: string;
-  respResposta: boolean;
+  id: string;
+  description: string;
+  resultado: boolean;
 }
