@@ -13,7 +13,6 @@ export const realiseLogin = async (usuario: string, senha: string) => {
     if (!user) {
       return { msg: 'usuario nao encontrado' };
     }
-
     return user;
   } catch (error) {
     console.error('Erro ao buscar usuário ID:', error);

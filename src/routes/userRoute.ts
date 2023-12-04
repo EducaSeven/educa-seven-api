@@ -9,6 +9,8 @@ import {
 
 const userRouter = express.Router();
 
+userRouter.post('/login', postLogin);
+
 // Rota para criar usuários
 userRouter.post('/', createUser);
 
@@ -20,7 +22,5 @@ userRouter.get('/:id', getOneUser);
 
 // Rota para deleter usuario
 userRouter.delete('/:id', deleteUser);
-
-userRouter.post('/login', postLogin);
 
 export default userRouter;

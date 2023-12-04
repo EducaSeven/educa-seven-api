@@ -52,8 +52,8 @@ export const postLogin = async (req: Request, res: Response) => {
   try {
     console.log('login, req.body ', req.body);
     const { usuario, senha } = req.body;
-    await realiseLogin(usuario, senha);
-    return res.status(204).json();
+    const resp = await realiseLogin(usuario, senha);
+    return res.status(204).json(resp);
   } catch (error) {
     console.log(error);
   }
