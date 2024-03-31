@@ -9,16 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.getOneUser = exports.getAllUsers = exports.createUser = void 0;
+exports.postLogin = exports.deleteUser = exports.getOneUser = exports.getAllUsers = exports.createUser = void 0;
 const createUser_service_1 = require("../services/user/createUser.service");
 const deleteUser_service_1 = require("../services/user/deleteUser.service");
 const findAllUsers_service_1 = require("../services/user/findAllUsers.service");
 const findOneUser_service_1 = require("../services/user/findOneUser.service");
+const realiseLogin_service_1 = require("../services/user/realiseLogin.service");
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { nome, tipo } = req.body;
-        const usuario = yield (0, createUser_service_1.createUserService)(nome, tipo);
-        return res.status(201).json(usuario);
+        console.log('createUser, req.body', req.body);
+        const { usuario, senha } = req.body;
+        const user = yield (0, createUser_service_1.createUserService)(usuario, senha);
+        return res.status(201).json(user);
     }
     catch (error) {
         console.log(error);
@@ -27,6 +29,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createUser = createUser;
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('getAllUsers,  no req.body no params');
         const users = yield (0, findAllUsers_service_1.findAllUsersService)();
         return res.json(users);
     }
@@ -37,6 +40,7 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getAllUsers = getAllUsers;
 const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('getAllUsers, req.params.id: ', req.params.id);
         const idUser = req.params.id;
         const user = yield (0, findOneUser_service_1.findOneUserService)(idUser);
         return res.json(user);
@@ -48,12 +52,25 @@ const getOneUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getOneUser = getOneUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('deleteUser, req.params.id: ', req.params.id);
         const idUser = req.params.id;
         yield (0, deleteUser_service_1.deleteUserService)(idUser);
-        return res.status(204).json();
+        return res.status(200).json();
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.deleteUser = deleteUser;
+const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log('login, req.body ', req.body);
+        const { usuario, senha } = req.body;
+        const resp = yield (0, realiseLogin_service_1.realiseLogin)(usuario, senha);
+        return res.status(200).json(resp);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.postLogin = postLogin;
