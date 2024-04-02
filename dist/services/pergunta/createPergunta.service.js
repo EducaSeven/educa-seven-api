@@ -15,20 +15,21 @@ const createPergunta = (pergunta) => __awaiter(void 0, void 0, void 0, function*
     try {
         const perguntaCriada = yield clientDataBase_1.clientDataBase.pergunta.create({
             data: {
-                titulo: pergunta.pergTitle,
+                titulo: pergunta.titulo,
+                description: pergunta.description,
             },
         });
         pergunta.respostas.forEach((r) => __awaiter(void 0, void 0, void 0, function* () {
             const respostaCriada = yield clientDataBase_1.clientDataBase.resposta.create({
                 data: {
-                    descricao: r.respDescription,
+                    descricao: r.description,
                 },
             });
             yield clientDataBase_1.clientDataBase.pergunta_Respota.create({
                 data: {
                     perguntaId: perguntaCriada.id,
                     respostaId: respostaCriada.id,
-                    resultado: r.respResposta,
+                    resultado: r.resultado,
                 },
             });
         }));

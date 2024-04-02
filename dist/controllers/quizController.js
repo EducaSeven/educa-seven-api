@@ -16,6 +16,7 @@ const createQuiz_service_1 = require("../services/quiz/createQuiz.service");
 const deleteQuiz_service_1 = require("../services/quiz/deleteQuiz.service");
 const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('getAllQuizzes,  no params e no body:');
         const quizzes = yield (0, findAll_quizzes_service_1.findAllQuizzesService)();
         return res.json(quizzes);
     }
@@ -26,6 +27,7 @@ const getAllQuizzes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getAllQuizzes = getAllQuizzes;
 const getOneQuizze = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('getOneQuizze,  params.id:', req.params.id);
         const idQuiz = req.params.id;
         const quiz = yield (0, findOne_quiz_service_1.findOneQuizService)(idQuiz);
         return res.json(quiz);
@@ -37,6 +39,7 @@ const getOneQuizze = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.getOneQuizze = getOneQuizze;
 const createQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('createQuiz, req.body', req.body);
         const data = req.body;
         const quiz = yield (0, createQuiz_service_1.createQuizService)(data);
         return res.status(201).json(quiz);
@@ -48,6 +51,7 @@ const createQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createQuiz = createQuiz;
 const deleteQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('deleteQuiz, params.id', req.params.id);
         const idQuiz = req.params.id;
         yield (0, deleteQuiz_service_1.deleteQuizService)(idQuiz);
         return res.status(204).json();

@@ -9,16 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPontuacao = void 0;
+exports.postPontuacao = exports.getAllPontuacao = void 0;
 const findAllPontuacao_service_1 = require("../services/pontuacao/findAllPontuacao.service");
+const createPontuacao_service_1 = require("../services/pontuacao/createPontuacao.service");
 const getAllPontuacao = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log('teste');
+        console.log('getAllPontuacao,  params.id:', req.params.id);
         const resp = yield (0, findAllPontuacao_service_1.findAllPontuacao)(req.params.id);
-        return res.status(200).json(resp);
+        return res.status(200).json({ resp });
     }
     catch (error) {
         console.log(error);
     }
 });
 exports.getAllPontuacao = getAllPontuacao;
+const postPontuacao = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        console.log('postPontuacao,  req.body:', req.body);
+        const { usuarioId, pontuacao, quizId } = req.body;
+        const resp = yield (0, createPontuacao_service_1.createPontuacao)(usuarioId, pontuacao, quizId);
+        return res.status(200).json({ resp });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.postPontuacao = postPontuacao;
