@@ -16,6 +16,7 @@ const createQuizService = (data) => __awaiter(void 0, void 0, void 0, function* 
         let savedQuiz = yield clientDataBase_1.clientDataBase.quiz.create({
             data: {
                 nome: data.titulo,
+                description: data.descricao,
             },
         });
         data.perguntas.forEach((p) => __awaiter(void 0, void 0, void 0, function* () {
