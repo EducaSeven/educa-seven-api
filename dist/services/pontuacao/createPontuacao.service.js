@@ -9,34 +9,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPergunta = void 0;
+exports.createPontuacao = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const createPergunta = (pergunta) => __awaiter(void 0, void 0, void 0, function* () {
+const createPontuacao = (usuarioId, pontuacao, quizId) => __awaiter(void 0, void 0, void 0, function* () {
+    let pontucaoExistente;
     try {
-        const perguntaCriada = yield clientDataBase_1.clientDataBase.pergunta.create({
-            data: {
-                titulo: pergunta.titulo,
-                description: pergunta.description,
+        pontucaoExistente = yield clientDataBase_1.clientDataBase.pontuacacao.findFirst({
+            where: {
+                quizId,
+                usuarioId,
             },
         });
-        pergunta.respostas.forEach((r) => __awaiter(void 0, void 0, void 0, function* () {
-            const respostaCriada = yield clientDataBase_1.clientDataBase.resposta.create({
+        if (pontucaoExistente) {
+            return yield clientDataBase_1.clientDataBase.pontuacacao.update({
+                where: {
+                    id: pontucaoExistente.id,
+                },
                 data: {
-                    descricao: r.description,
+                    pontuacao,
+                    usuarioId,
+                    quizId,
                 },
             });
-            yield clientDataBase_1.clientDataBase.pergunta_Respota.create({
+        }
+        else {
+            return yield clientDataBase_1.clientDataBase.pontuacacao.create({
                 data: {
-                    perguntaId: perguntaCriada.id,
-                    respostaId: respostaCriada.id,
-                    resultado: r.resultado,
+                    pontuacao,
+                    usuarioId,
+                    quizId,
                 },
             });
-        }));
-        return { msg: 'Criado com sucesso' };
+        }
     }
     catch (error) {
-        console.error('Erro ao salvar quiz:', error);
+        console.error('Erro ao criar pontuacao:', error);
     }
 });
-exports.createPergunta = createPergunta;
+exports.createPontuacao = createPontuacao;

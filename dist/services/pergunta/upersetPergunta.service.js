@@ -9,34 +9,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPergunta = void 0;
+exports.upersetPergunta = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const createPergunta = (pergunta) => __awaiter(void 0, void 0, void 0, function* () {
+const upersetPergunta = (pergunta) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const perguntaCriada = yield clientDataBase_1.clientDataBase.pergunta.create({
+        const perguntaCriada = yield clientDataBase_1.clientDataBase.pergunta.update({
+            where: {
+                id: pergunta.id,
+            },
             data: {
                 titulo: pergunta.titulo,
                 description: pergunta.description,
             },
         });
         pergunta.respostas.forEach((r) => __awaiter(void 0, void 0, void 0, function* () {
-            const respostaCriada = yield clientDataBase_1.clientDataBase.resposta.create({
+            const resposta = yield clientDataBase_1.clientDataBase.resposta.update({
+                where: {
+                    id: r.id,
+                },
                 data: {
                     descricao: r.description,
                 },
             });
-            yield clientDataBase_1.clientDataBase.pergunta_Respota.create({
+            const rp = yield clientDataBase_1.clientDataBase.pergunta_Respota.findFirst({
+                where: {
+                    respostaId: r.id,
+                    perguntaId: pergunta.id,
+                },
+                select: {
+                    id: true,
+                },
+            });
+            yield clientDataBase_1.clientDataBase.pergunta_Respota.update({
+                where: {
+                    id: rp === null || rp === void 0 ? void 0 : rp.id,
+                },
                 data: {
-                    perguntaId: perguntaCriada.id,
-                    respostaId: respostaCriada.id,
                     resultado: r.resultado,
                 },
             });
         }));
-        return { msg: 'Criado com sucesso' };
+        return { msg: 'Atualizado com sucesso' };
     }
     catch (error) {
         console.error('Erro ao salvar quiz:', error);
     }
 });
-exports.createPergunta = createPergunta;
+exports.upersetPergunta = upersetPergunta;

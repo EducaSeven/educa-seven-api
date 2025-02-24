@@ -11,12 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUserService = void 0;
 const clientDataBase_1 = require("../../database/clientDataBase");
-const createUserService = (nome, tipo) => __awaiter(void 0, void 0, void 0, function* () {
+const createUserService = (nome, senha) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield clientDataBase_1.clientDataBase.usuario.create({
             data: {
                 nome,
-                tipo,
+                senha,
+                tipo: true,
+                email: `${nome}@gamil.com`,
             },
         });
     }
